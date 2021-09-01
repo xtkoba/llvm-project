@@ -2124,10 +2124,9 @@ void ARMAsmPrinter::emitInstruction(const MachineInstr *MI) {
         // Predicate.
         .addImm(ARMCC::AL)
         .addReg(0));
-      EmitToStreamer(*OutStreamer, MCInstBuilder(ARM::tLDRi)
+      EmitToStreamer(*OutStreamer, MCInstBuilder(ARM::tMOVr)
         .addReg(ARM::R11)
-        .addReg(SrcReg)
-        .addImm(0)
+        .addReg(ARM::R7)
         // Predicate.
         .addImm(ARMCC::AL)
         .addReg(0));
