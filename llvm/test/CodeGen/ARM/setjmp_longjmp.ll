@@ -1,5 +1,6 @@
 ; RUN: llc -simplifycfg-require-and-preserve-domtree=1 %s -o - | FileCheck %s
 ; RUN: llc -mtriple=armv7-linux -exception-model sjlj -simplifycfg-require-and-preserve-domtree=1 %s -o - | FileCheck %s -check-prefix CHECK-LINUX
+; RUN: llc -mtriple=thumbv7-linux -exception-model sjlj -simplifycfg-require-and-preserve-domtree=1 %s -o - | FileCheck %s -check-prefix CHECK-LINUX-THUMB2
 ; RUN: llc -mtriple=thumbv7-win32 -exception-model sjlj -simplifycfg-require-and-preserve-domtree=1 %s -o - | FileCheck %s -check-prefix CHECK-WIN32
 target triple = "armv7-apple-ios"
 
@@ -36,6 +37,13 @@ declare i8* @llvm.stacksave()
 ; CHECK-LINUX-NEXT: ldr r7, {{\[}}[[BUFREG]]{{\]}}
 ; CHECK-LINUX-NEXT: ldr r11, {{\[}}[[BUFREG]]{{\]}}
 ; CHECK-LINUX-NEXT: bx [[DESTREG]]
+
+; CHECK-LINUX-THUMB2: ldr [[DESTREG:r[0-9]+]], [{{\s*}}[[BUFREG:r[0-9]+]], #8]
+; CHECK-LINUX-THUMB2-NEXT: mov sp, [[DESTREG]]
+; CHECK-LINUX-THUMB2-NEXT: ldr [[DESTREG]], {{\[}}[[BUFREG]], #4]
+; CHECK-LINUX-THUMB2-NEXT: ldr r7, {{\[}}[[BUFREG]]{{\]}}
+; CHECK-LINUX-THUMB2-NEXT: mov r11, r7
+; CHECK-LINUX-THUMB2-NEXT: bx [[DESTREG]]
 
 ; CHECK-WIN32: ldr.w r11, [{{\s*}}[[BUFREG:r[0-9]+]]]
 ; CHECK-WIN32-NEXT: ldr.w sp, {{\[}}[[BUFREG]], #8]
