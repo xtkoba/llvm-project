@@ -1545,7 +1545,7 @@ def tInt_eh_sjlj_setjmp : ThumbXI<(outs),(ins tGPR:$src, tGPR:$val),
 
 // FIXME: Non-IOS version(s)
 let isBarrier = 1, hasSideEffects = 1, isTerminator = 1, isCodeGenOnly = 1,
-    Defs = [ R7, LR, SP ] in
+    Defs = [ R7, R11, LR, SP ] in
 def tInt_eh_sjlj_longjmp : XI<(outs), (ins tGPR:$src, tGPR:$scratch),
                               AddrModeNone, 0, IndexModeNone,
                               Pseudo, NoItinerary, "", "",
