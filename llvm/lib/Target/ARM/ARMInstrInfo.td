@@ -5909,10 +5909,10 @@ let Defs =
 
 // FIXME: Non-IOS version(s)
 let isBarrier = 1, hasSideEffects = 1, isTerminator = 1,
-    Defs = [ R7, LR, SP ] in {
-def Int_eh_sjlj_longjmp : PseudoInst<(outs), (ins GPR:$src, GPR:$scratch),
+    Defs = [ R7, R11, LR, SP ] in {
+def Int_eh_sjlj_longjmp : PseudoInst<(outs), (ins GPRnofp:$src, GPRnofp:$scratch),
                              NoItinerary,
-                         [(ARMeh_sjlj_longjmp GPR:$src, GPR:$scratch)]>,
+                         [(ARMeh_sjlj_longjmp GPRnofp:$src, GPRnofp:$scratch)]>,
                                 Requires<[IsARM]>;
 }
 
