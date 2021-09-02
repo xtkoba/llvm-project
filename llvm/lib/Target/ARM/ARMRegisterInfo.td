@@ -254,6 +254,16 @@ def GPRnoip : RegisterClass<"ARM", [i32], 32, (sub GPR, R12, LR)> {
   let DiagnosticString = "operand must be a register in range [r0, r14]";
 }
 
+// GPRs without potential FPs.  Used by eh_sjlj_longjmp().
+def GPRnofp : RegisterClass<"ARM", [i32], 32, (sub GPR, R7, R11)> {
+  let AltOrders = [(add LR, GPRnofp), (trunc GPRnofp, 7),
+                   (add (trunc GPRnofp, 7), R12, LR, (shl GPRnofp, 7))];
+  let AltOrderSelect = [{
+      return MF.getSubtarget<ARMSubtarget>().getGPRAllocationOrder(MF);
+  }];
+  let DiagnosticString = "operand must be a register in range [r0, r15]";
+}
+
 // GPRs without the PC.  Some ARM instructions do not allow the PC in
 // certain operand slots, particularly as the destination.  Primarily
 // useful for disassembly.
