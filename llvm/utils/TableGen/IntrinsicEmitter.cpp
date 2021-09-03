@@ -590,6 +590,9 @@ struct AttributeComparator {
     if (L->isNoReturn != R->isNoReturn)
       return R->isNoReturn;
 
+    if (L->isReturnsTwice != R->isReturnsTwice)
+      return R->isReturnsTwice;
+
     if (L->isNoSync != R->isNoSync)
       return R->isNoSync;
 
@@ -739,7 +742,8 @@ void IntrinsicEmitter::EmitAttributes(const CodeGenIntrinsicTable &Ints,
     if (!Intrinsic.canThrow ||
         (Intrinsic.ModRef != CodeGenIntrinsic::ReadWriteMem &&
          !Intrinsic.hasSideEffects) ||
-        Intrinsic.isNoReturn || Intrinsic.isNoSync || Intrinsic.isNoFree ||
+        Intrinsic.isNoReturn || Intrinsic.isReturnsTwice ||
+        Intrinsic.isNoSync || Intrinsic.isNoFree ||
         Intrinsic.isWillReturn || Intrinsic.isCold || Intrinsic.isNoDuplicate ||
         Intrinsic.isNoMerge || Intrinsic.isConvergent ||
         Intrinsic.isSpeculatable) {
@@ -749,6 +753,8 @@ void IntrinsicEmitter::EmitAttributes(const CodeGenIntrinsicTable &Ints,
         OS << LS << "Attribute::NoUnwind";
       if (Intrinsic.isNoReturn)
         OS << LS << "Attribute::NoReturn";
+      if (Intrinsic.isReturnsTwice)
+        OS << LS << "Attribute::ReturnsTwice";
       if (Intrinsic.isNoSync)
         OS << LS << "Attribute::NoSync";
       if (Intrinsic.isNoFree)
