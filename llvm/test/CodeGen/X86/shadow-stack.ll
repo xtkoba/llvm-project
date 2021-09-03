@@ -127,17 +127,17 @@ define i32 @foo(i32 %i) local_unnamed_addr {
 ; X86_64-NEXT:    .cfi_offset %r13, -40
 ; X86_64-NEXT:    .cfi_offset %r14, -32
 ; X86_64-NEXT:    .cfi_offset %r15, -24
-; X86_64-NEXT:    ## kill: def $edi killed $edi def $rdi
-; X86_64-NEXT:    movq %rdi, {{[-0-9]+}}(%r{{[sb]}}p) ## 8-byte Spill
-; X86_64-NEXT:    movq _buf@GOTPCREL(%rip), %rax
-; X86_64-NEXT:    movq (%rax), %rax
-; X86_64-NEXT:    movq %rbp, (%rax)
-; X86_64-NEXT:    movq %rsp, 16(%rax)
-; X86_64-NEXT:    leaq LBB1_4(%rip), %rcx
-; X86_64-NEXT:    movq %rcx, 8(%rax)
-; X86_64-NEXT:    xorq %rcx, %rcx
-; X86_64-NEXT:    rdsspq %rcx
-; X86_64-NEXT:    movq %rcx, 24(%rax)
+; X86_64-NEXT:    movl %edi, {{[-0-9]+}}(%r{{[sb]}}p) ## 4-byte Spill
+; X86_64-NEXT:    movq %rsp, %rcx
+; X86_64-NEXT:    movq _buf@GOTPCREL(%rip), %rdx
+; X86_64-NEXT:    movq (%rdx), %rdx
+; X86_64-NEXT:    movq %rbp, (%rdx)
+; X86_64-NEXT:    movq %rcx, 16(%rdx)
+; X86_64-NEXT:    leaq LBB1_4(%rip), %rax
+; X86_64-NEXT:    movq %rax, 8(%rdx)
+; X86_64-NEXT:    xorq %rax, %rax
+; X86_64-NEXT:    rdsspq %rax
+; X86_64-NEXT:    movq %rax, 24(%rdx)
 ; X86_64-NEXT:    #EH_SjLj_Setup LBB1_4
 ; X86_64-NEXT:  ## %bb.1: ## %entry
 ; X86_64-NEXT:    xorl %eax, %eax
@@ -149,8 +149,9 @@ define i32 @foo(i32 %i) local_unnamed_addr {
 ; X86_64-NEXT:    testl %eax, %eax
 ; X86_64-NEXT:    je LBB1_5
 ; X86_64-NEXT:  ## %bb.3: ## %if.end
-; X86_64-NEXT:    movq {{[-0-9]+}}(%r{{[sb]}}p), %rax ## 8-byte Reload
+; X86_64-NEXT:    movl {{[-0-9]+}}(%r{{[sb]}}p), %eax ## 4-byte Reload
 ; X86_64-NEXT:    shll $2, %eax
+; X86_64-NEXT:    ## kill: def $eax killed $eax def $rax
 ; X86_64-NEXT:    leal (%rax,%rax,2), %eax
 ; X86_64-NEXT:    addq $8, %rsp
 ; X86_64-NEXT:    popq %rbx
@@ -178,14 +179,15 @@ define i32 @foo(i32 %i) local_unnamed_addr {
 ; X86-NEXT:    .cfi_offset %esi, -20
 ; X86-NEXT:    .cfi_offset %edi, -16
 ; X86-NEXT:    .cfi_offset %ebx, -12
-; X86-NEXT:    movl L_buf$non_lazy_ptr, %eax
-; X86-NEXT:    movl (%eax), %eax
-; X86-NEXT:    movl %ebp, (%eax)
-; X86-NEXT:    movl %esp, 16(%eax)
-; X86-NEXT:    movl $LBB1_4, 4(%eax)
-; X86-NEXT:    xorl %ecx, %ecx
-; X86-NEXT:    rdsspd %ecx
-; X86-NEXT:    movl %ecx, 12(%eax)
+; X86-NEXT:    movl %esp, %ecx
+; X86-NEXT:    movl L_buf$non_lazy_ptr, %edx
+; X86-NEXT:    movl (%edx), %edx
+; X86-NEXT:    movl %ebp, (%edx)
+; X86-NEXT:    movl %ecx, 16(%edx)
+; X86-NEXT:    movl $LBB1_4, 4(%edx)
+; X86-NEXT:    xorl %eax, %eax
+; X86-NEXT:    rdsspd %eax
+; X86-NEXT:    movl %eax, 12(%edx)
 ; X86-NEXT:    #EH_SjLj_Setup LBB1_4
 ; X86-NEXT:  ## %bb.1: ## %entry
 ; X86-NEXT:    xorl %eax, %eax
