@@ -14,10 +14,12 @@ define void @double_foobar() {
 ; CHECK-NEXT:    push.w {r4, r5, r6, r7, r8, r10, r11, lr}
 ; CHECK-NEXT:    add r7, sp, #24
 ; CHECK-NEXT:    sub sp, #24
+; CHECK-NEXT:    mov r0, r7
 ; CHECK-NEXT:    movs r1, #0
+; CHECK-NEXT:    str r0, [sp, #4]
+; CHECK-NEXT:    mov r0, sp
+; CHECK-NEXT:    str r0, [sp, #12]
 ; CHECK-NEXT:    add r0, sp, #4
-; CHECK-NEXT:    str r7, [sp, #4]
-; CHECK-NEXT:    str.w sp, [sp, #12]
 ; CHECK-NEXT:    mov r1, pc @ eh_setjmp begin
 ; CHECK-NEXT:    adds r1, r1, #7
 ; CHECK-NEXT:    str r1, [r0, #4]
@@ -35,10 +37,12 @@ define void @double_foobar() {
 ; CHECK-NEXT:    movs r0, #1
 ; CHECK-NEXT:    str r1, [sp] @ 4-byte Spill
 ; CHECK-NEXT:    str r0, [r1]
+; CHECK-NEXT:    mov r0, r7
+; CHECK-NEXT:    str r0, [sp, #4]
+; CHECK-NEXT:    mov r0, sp
+; CHECK-NEXT:    str r0, [sp, #12]
 ; CHECK-NEXT:    add r0, sp, #4
 ; CHECK-NEXT:    movs r1, #0
-; CHECK-NEXT:    str r7, [sp, #4]
-; CHECK-NEXT:    str.w sp, [sp, #12]
 ; CHECK-NEXT:    mov r1, pc @ eh_setjmp begin
 ; CHECK-NEXT:    adds r1, r1, #7
 ; CHECK-NEXT:    str r1, [r0, #4]
