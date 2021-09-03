@@ -743,10 +743,9 @@ void IntrinsicEmitter::EmitAttributes(const CodeGenIntrinsicTable &Ints,
         (Intrinsic.ModRef != CodeGenIntrinsic::ReadWriteMem &&
          !Intrinsic.hasSideEffects) ||
         Intrinsic.isNoReturn || Intrinsic.isReturnsTwice ||
-        Intrinsic.isNoSync || Intrinsic.isNoFree ||
-        Intrinsic.isWillReturn || Intrinsic.isCold || Intrinsic.isNoDuplicate ||
-        Intrinsic.isNoMerge || Intrinsic.isConvergent ||
-        Intrinsic.isSpeculatable) {
+        Intrinsic.isNoSync || Intrinsic.isNoFree || Intrinsic.isWillReturn ||
+        Intrinsic.isCold || Intrinsic.isNoDuplicate || Intrinsic.isNoMerge ||
+        Intrinsic.isConvergent || Intrinsic.isSpeculatable) {
       OS << "      const Attribute::AttrKind Atts[] = {";
       ListSeparator LS(",");
       if (!Intrinsic.canThrow)
