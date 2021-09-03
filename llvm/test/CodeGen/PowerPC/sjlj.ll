@@ -72,7 +72,7 @@ return:                                           ; preds = %if.end, %if.then
 ; CHECK-DAG: std 31, env_sigill@toc@l([[REG]])
 ; CHECK-DAG: addi [[REGA:[0-9]+]], [[REG]], env_sigill@toc@l
 ; CHECK-DAG: std [[REGA]], [[OFF:[0-9]+]](31)                  # 8-byte Folded Spill
-; CHECK-DAG: std 1, 16([[REGA]])
+; CHECK-DAG: std 4, 16([[REGA]])
 ; CHECK-DAG: std 2, 24([[REGA]])
 ; CHECK: bcl 20, 31, .LBB1_3
 ; CHECK: li 3, 1
@@ -137,7 +137,7 @@ return:                                           ; preds = %if.end, %if.then
 ; CHECK-DAG: std 31, env_sigill@toc@l([[REG]])
 ; CHECK-DAG: addi [[REGB:[0-9]+]], [[REG]], env_sigill@toc@l
 ; CHECK-DAG: std [[REGB]], [[OFF:[0-9]+]](31)                  # 8-byte Folded Spill
-; CHECK-DAG: std 1, 16([[REGB]])
+; CHECK-DAG: std 4, 16([[REGB]])
 ; CHECK-DAG: std 2, 24([[REGB]])
 ; CHECK-DAG: std 30, 32([[REGB]])
 ; CHECK: bcl 20, 31,
