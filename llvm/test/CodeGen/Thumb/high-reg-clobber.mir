@@ -31,7 +31,7 @@ body:             |
     ; CHECK: tSTRspi [[COPY]], %stack.0, 0, 14 /* CC::al */, $noreg
     ; CHECK: [[tLDRspi:%[0-9]+]]:tgpr = tLDRspi %stack.0, 0, 14 /* CC::al */, $noreg
     ; CHECK: [[COPY1:%[0-9]+]]:hgpr = COPY [[tLDRspi]]
-    ; CHECK: INLINEASM &"mov r12, $0", 1 /* sideeffect attdialect */, 1048585 /* reguse:GPRnoip_and_GPRwithAPSR_NZCVnosp */, [[COPY1]], 12 /* clobber */, implicit-def early-clobber $r12
+    ; CHECK: INLINEASM &"mov r12, $0", 1 /* sideeffect attdialect */, 1048585 /* reguse:GPRnofp_and_GPRnopc */, [[COPY1]], 12 /* clobber */, implicit-def early-clobber $r12
     ; CHECK: tBX_RET 14 /* CC::al */, $noreg
     ; FAST-LABEL: name: constraint_h
     ; FAST: liveins: $r0
