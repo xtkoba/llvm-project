@@ -38,7 +38,7 @@ body:             |
     ; FAST: tSTRspi killed renamable $r0, %stack.0, 0, 14 /* CC::al */, $noreg
     ; FAST: renamable $r0 = tLDRspi %stack.0, 0, 14 /* CC::al */, $noreg
     ; FAST: renamable $r8 = COPY killed renamable $r0
-    ; FAST: INLINEASM &"mov r12, $0", 1 /* sideeffect attdialect */, 1048585 /* reguse:GPRnoip_and_GPRwithAPSR_NZCVnosp */, killed renamable $r8, 12 /* clobber */, implicit-def dead early-clobber $r12
+    ; FAST: INLINEASM &"mov r12, $0", 1 /* sideeffect attdialect */, 1048585 /* reguse:GPRnofp_and_GPRnopc */, killed renamable $r8, 12 /* clobber */, implicit-def dead early-clobber $r12
     ; FAST: tBX_RET 14 /* CC::al */, $noreg
     %0:tgpr = COPY $r0
     tSTRspi %0, %stack.0, 0, 14 /* CC::al */, $noreg
