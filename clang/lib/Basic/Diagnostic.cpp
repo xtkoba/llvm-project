@@ -811,7 +811,7 @@ FormatDiagnostic(const char *DiagStr, const char *DiagEnd,
       StringRef(DiagStr, DiagEnd - DiagStr).equals("%0") &&
       getArgKind(0) == DiagnosticsEngine::ak_std_string) {
     const std::string &S = getArgStdStr(0);
-    for (char c : S) {
+    for (signed char c : S) {
       if (llvm::sys::locale::isPrint(c) || c == '\t') {
         OutStr.push_back(c);
       }
